@@ -1,0 +1,37 @@
+version: '3.4'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: rabbitmq
+    ports:
+      - 15672:15672
+    expose:
+      - 5672
+    environment:
+      RABBITMQ_DEFAULT_USER: localrabbituser
+      RABBITMQ_DEFAULT_PASS: localrabbitpassword
+
+  rabbitmqsample.producer:
+    build:
+      context: .
+      dockerfile: RabbitMQSample.Producer/Dockerfile
+    depends_on:
+      - "rabbitmq"
+
+  rabbitmqsample.consumer:
+    build:
+      context: .
+      dockerfile: RabbitMQSample.Consumer/Dockerfile
+    depends_on:
+      - "rabbitmq"
+
+  rabbitmqsample.signalrconsumer:
+    build:
+      context: .
+      dockerfile: RabbitMQSample.SignalRConsumer/Dockerfile
+    ports:
+      - 9080:80
+      - 9443:443
+    depends_on:
+      - "rabbitmq"

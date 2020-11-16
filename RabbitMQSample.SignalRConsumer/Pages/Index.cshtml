@@ -1,0 +1,31 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: 33% 33% 33%;
+    }
+</style>
+
+<div class="grid-container">
+    <div>
+        <span>Queue</span>
+
+        <ul id="queue_messages">
+        </ul>
+    </div>
+
+    <div>
+        <span>Pub/Sub</span>
+
+        <ul id="pub_sub_messages">
+        </ul>
+    </div>
+</div>
+
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/index.js"></script>
